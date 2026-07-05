@@ -34,7 +34,7 @@ Use safe listing/inspection APIs to audit policy coverage:
 - `github-mcp-server-search_issues` / `github-mcp-server-search_pull_requests`  
   Find policy-change discussions, bypass approvals, or governance evidence.
 
-> Note: explicit branch protection/ruleset/bypass-actor definitions may also be visible via repository settings UI. In MCP workflows, use read/list/status data to validate behavior and traceability.
+> Note: branch protection, ruleset, and bypass-actor configurations are often easiest to view in repository settings. In MCP workflows, use read/list/status APIs and run/check evidence to validate effective behavior and maintain traceability.
 
 ## Deployment APIs and Deployment Statuses
 
