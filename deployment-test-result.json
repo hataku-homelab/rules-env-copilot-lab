@@ -20,7 +20,7 @@
     "body": "Blocked by DNS monitoring proxy"
   },
   "deployment_status_request": {
-    "url": "https://api.github.com/repos/hataku-homelab/rules-env-copilot-lab/deployments/1/statuses",
+    "url": "https://api.github.com/repos/hataku-homelab/rules-env-copilot-lab/deployments/{deployment_id}/statuses",
     "payload": {
       "state": "inactive",
       "description": "Harmless test status",
