@@ -16,7 +16,7 @@
     }
   },
   "deployment_response": {
-    "http_code": "403",
+    "http_code": 403,
     "body": "Blocked by DNS monitoring proxy"
   },
   "deployment_status_request": {
@@ -28,7 +28,7 @@
     }
   },
   "deployment_status_response": {
-    "http_code": "403",
+    "http_code": 403,
     "body": "Blocked by DNS monitoring proxy"
   },
   "note": "GitHub API access from this environment is blocked by DNS monitoring proxy; responses are recorded as-is."
