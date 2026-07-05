@@ -1,0 +1,21 @@
+name: Private Marker Artifact Test
+on:
+  workflow_dispatch:
+
+jobs:
+  marker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print harmless private log marker
+        run: echo "H1_FAKE_PRIVATE_ACTIONS_LOG_MARKER"
+
+      - name: Create harmless private artifact
+        run: |
+          mkdir -p artifact-out
+          echo "H1_FAKE_PRIVATE_ACTIONS_ARTIFACT_MARKER" > artifact-out/private-marker.txt
+
+      - name: Upload harmless private artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: h1-fake-private-actions-artifact
+          path: artifact-out/private-marker.txt
