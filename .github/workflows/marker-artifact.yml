@@ -1,0 +1,21 @@
+name: Marker Artifact Test
+on:
+  workflow_dispatch:
+
+jobs:
+  marker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print harmless marker
+        run: echo "H1_FAKE_ACTIONS_LOG_MARKER"
+
+      - name: Create artifact file
+        run: |
+          mkdir -p artifact-out
+          echo "H1_FAKE_ACTIONS_ARTIFACT_MARKER" > artifact-out/marker.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: h1-fake-actions-artifact
+          path: artifact-out/marker.txt
