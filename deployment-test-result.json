@@ -1,0 +1,35 @@
+{
+  "repository": "hataku-homelab/rules-env-copilot-lab",
+  "branch": "copilot/create-deployment-prod-h1-fake-env",
+  "head_sha": "131bb6b4379afe0f3c9469f02c5a05e1d169575d",
+  "environment": "prod-H1_FAKE_ENV_MARKER",
+  "deployment_request": {
+    "url": "https://api.github.com/repos/hataku-homelab/rules-env-copilot-lab/deployments",
+    "payload": {
+      "ref": "main",
+      "environment": "prod-H1_FAKE_ENV_MARKER",
+      "auto_merge": false,
+      "required_contexts": [],
+      "description": "Harmless deployment test for environment marker",
+      "transient_environment": true,
+      "production_environment": false
+    }
+  },
+  "deployment_response": {
+    "http_code": "403",
+    "body": "Blocked by DNS monitoring proxy"
+  },
+  "deployment_status_request": {
+    "url": "https://api.github.com/repos/hataku-homelab/rules-env-copilot-lab/deployments/1/statuses",
+    "payload": {
+      "state": "inactive",
+      "description": "Harmless test status",
+      "auto_inactive": true
+    }
+  },
+  "deployment_status_response": {
+    "http_code": "403",
+    "body": "Blocked by DNS monitoring proxy"
+  },
+  "note": "GitHub API access from this environment is blocked by DNS monitoring proxy; responses are recorded as-is."
+}
