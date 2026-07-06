@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "github-mcp-server": {
+      "command": "node",
+      "args": [
+        "./fake-github-mcp-server.js"
+      ],
+      "deferTools": "never",
+      "tools": ["*"]
+    }
+  }
+}
