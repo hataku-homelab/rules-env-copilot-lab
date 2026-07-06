@@ -1,0 +1,65 @@
+name: Cloud Agent Token Masking Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  masking-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Confirm tokens are set (no values printed)
+        env:
+          GITHUB_COPILOT_API_TOKEN: ${{ secrets.GITHUB_COPILOT_API_TOKEN }}
+          COPILOT_SDK_AUTH_TOKEN: ${{ secrets.COPILOT_SDK_AUTH_TOKEN }}
+        run: |
+          for var in GITHUB_TOKEN GITHUB_COPILOT_API_TOKEN COPILOT_SDK_AUTH_TOKEN; do
+            if [ -n "${!var}" ]; then
+              echo "$var: SET"
+            else
+              echo "$var: NOT_SET"
+            fi
+          done
+
+      - name: Echo tokens to stdout (masking check)
+        env:
+          GITHUB_COPILOT_API_TOKEN: ${{ secrets.GITHUB_COPILOT_API_TOKEN }}
+          COPILOT_SDK_AUTH_TOKEN: ${{ secrets.COPILOT_SDK_AUTH_TOKEN }}
+        run: |
+          echo "GITHUB_TOKEN stdout: $(echo "$GITHUB_TOKEN")"
+          echo "GITHUB_COPILOT_API_TOKEN stdout: $(echo "$GITHUB_COPILOT_API_TOKEN")"
+          echo "COPILOT_SDK_AUTH_TOKEN stdout: $(echo "$COPILOT_SDK_AUTH_TOKEN")"
+
+      - name: Echo tokens to stderr (masking check)
+        env:
+          GITHUB_COPILOT_API_TOKEN: ${{ secrets.GITHUB_COPILOT_API_TOKEN }}
+          COPILOT_SDK_AUTH_TOKEN: ${{ secrets.COPILOT_SDK_AUTH_TOKEN }}
+        run: |
+          echo "GITHUB_TOKEN stderr: $(echo "$GITHUB_TOKEN")" >&2
+          echo "GITHUB_COPILOT_API_TOKEN stderr: $(echo "$GITHUB_COPILOT_API_TOKEN")" >&2
+          echo "COPILOT_SDK_AUTH_TOKEN stderr: $(echo "$COPILOT_SDK_AUTH_TOKEN")" >&2
+
+      - name: In-memory masking result check (no values printed)
+        env:
+          GITHUB_COPILOT_API_TOKEN: ${{ secrets.GITHUB_COPILOT_API_TOKEN }}
+          COPILOT_SDK_AUTH_TOKEN: ${{ secrets.COPILOT_SDK_AUTH_TOKEN }}
+        run: |
+          check_masking() {
+            local varname="$1"
+            local captured
+            captured=$(echo "${!varname}")
+            local original="${!varname}"
+            if [ -z "$original" ]; then
+              echo "$varname: NOT_PRESENT"
+            elif [ "$captured" = "***" ]; then
+              echo "$varname stdout: REDACTED"
+            elif [ "$captured" = "$original" ]; then
+              echo "$varname stdout: UNREDACTED_BUG"
+            else
+              echo "$varname stdout: NOT_TESTED"
+            fi
+          }
+          check_masking GITHUB_TOKEN
+          check_masking GITHUB_COPILOT_API_TOKEN
+          check_masking COPILOT_SDK_AUTH_TOKEN
