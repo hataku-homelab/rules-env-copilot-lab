@@ -30,7 +30,7 @@ All three contain the same `ghu_` prefixed GitHub OAuth token. The token value w
 |---|---|
 | GitHub MCP server tools | ✅ Functional (primary access path) |
 | Direct REST API (curl to api.github.com) | ❌ Blocked by sandbox DNS monitoring proxy (HTTP 403 "Blocked by DNS monitoring proxy") |
-| Browser / Playwright navigation to github.com | ❌ Blocked by sandbox firewall (ERR\_BLOCKED\_BY\_CLIENT) |
+| Browser / Playwright navigation to github.com | ❌ Blocked by sandbox firewall (ERR_BLOCKED_BY_CLIENT) |
 | Repository files (git clone) | ✅ Accessible (shallow clone provided) |
 
 ---
