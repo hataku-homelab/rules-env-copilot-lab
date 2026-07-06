@@ -79,9 +79,13 @@ job where secrets are registered with the runner.
 
 ## Workflow for GitHub Actions Context
 
-A repeatable workflow is provided at
-`.github/workflows/cloud-agent-token-masking.yml`.  
-Dispatch it via `workflow_dispatch` to run the same bounded test under a real
-GitHub Actions runner, where the masking layer is active.  
-`GITHUB_COPILOT_API_TOKEN` and `COPILOT_SDK_AUTH_TOKEN` must be added as
-repository secrets before dispatching.
+To observe `REDACTED` results under real runner masking, create a
+`workflow_dispatch` workflow that:
+
+1. Confirms each variable is set without printing its value.
+2. Echoes each variable to stdout and stderr.
+3. Compares the captured output in-memory and emits only `REDACTED`,
+   `UNREDACTED_BUG`, `NOT_PRESENT`, or `NOT_TESTED`.
+
+`GITHUB_COPILOT_API_TOKEN` and `COPILOT_SDK_AUTH_TOKEN` must be registered as
+repository secrets before dispatching such a workflow.
