@@ -1,0 +1,20 @@
+name: Snapshot Reachability Lab
+
+on:
+  workflow_dispatch:
+
+jobs:
+  snapshot_test:
+    runs-on: ubuntu-latest
+
+    snapshot:
+      image-name: hataku-snapshot-lab
+      version: 1.*
+
+    steps:
+      - name: Check snapshot environment
+        shell: bash
+        run: |
+          set -euxo pipefail
+          echo "RUNNER_ENVIRONMENT=${RUNNER_ENVIRONMENT:-}"
+          echo "GITHUB_ACTIONS_IMAGE_GEN_ENABLED=${GITHUB_ACTIONS_IMAGE_GEN_ENABLED:-}"
